@@ -14,7 +14,7 @@ export class ActorEntity{
     apellidos: string;
 
     @Column({type: "date"})
-    fechaNacimiento: string;
+    fechaNacimiento: Date;
 
     @Column({type: "int"})
     numeroPeliculas: number;
@@ -23,7 +23,7 @@ export class ActorEntity{
     retirado: boolean;
 
     @Column('varchar',{length: 50})
-    url_foto: string;
+    url_foto_actor: string;
 
     @OneToMany(type => PeliculaEntity, pelicula => pelicula.actor)
     peliculas: PeliculaEntity[]
