@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="col-sm-12">
+    <h2 class="titulo alinearCentro">Selección de Transferencia</h2>
+  </div>
+</div>
+
+<br><br>
+<div class="row">
+  <div class="col-sm-6" >
+    <div class="col-sm-12">
+      <h3>Usuario</h3>
+    </div>
+    <div class="row">
+      <div class="col-sm-4 alinearCentro" *ngFor="let usuario of usuarios">
+        <app-usuario
+          [nombre]="usuario.nombre"
+          [apellido]="usuario.apellido"
+          [url_foto]="'assets/imagenes/'+usuario.url_foto"
+        ></app-usuario>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6">
+    <div class="col-sm-12">
+      <h3>Item de selección</h3>
+    </div>
+    <div class="row">
+      <div class="col-sm-8">
+        <app-pelicula >
+
+        </app-pelicula>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <h3>Peliculas</h3>
+  </div>
+  <div class="row">
+    <div class="col-sm-3" *ngFor="let pelicula of peliculas">
+      <app-pelicula>
+
+      </app-pelicula>
+      <button type="button" class="btn btn-outline-info">Seleccionar transferencia</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,90 @@
+<nav class="navbar navbar-light bg-light">
+  <form class="form-inline">
+    <input class="form-control mr-sm-2" type="search" placeholder="Buscar">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+  </form>
+</nav>
+
+<br>
+<div class="row">
+  <div class="col-sm-12">
+    <h3>Usuarios</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-3 alinearCentro" *ngFor="let usuario of usuarios">
+    <app-usuario
+      [nombre]="usuario.nombre"
+      [apellido]="usuario.apellido"
+      [url_foto]="'assets/imagenes/'+usuario.url_foto"
+    ></app-usuario>
+    <button type="button" class="btn btn-outline-info">Visitar</button>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-sm-6">
+    <button type="button" class="btn btn-light">Anteriores</button>
+  </div>
+  <div class="col-sm-6 alinearDerecha" >
+    <button type="button"align="right"  class="btn btn-light">Siguientes</button>
+  </div>
+
+</div>
+<br><br><br>
+
+<div class="row">
+  <div class="col-sm-12">
+    <h3>Actores</h3>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-3" *ngFor="let actor of actores">
+    <app-actor
+      [nombres]="actor.nombres"
+      [apellidos]="actor.apellidos"
+      [fechaNacimiento]="actor.fechaNacimiento"
+      [numeroPeliculas]="actor.numeroPeliculas"
+      [retirado]="actor.retirado"
+      [url_foto]="'assets/imagenes/'+actor.url_foto"
+    ></app-actor>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-sm-6">
+    <button type="button" class="btn btn-light">Anteriores</button>
+  </div>
+  <div class="col-sm-6 alinearDerecha" >
+    <button type="button" class="btn btn-light">Siguientes</button>
+  </div>
+</div>
+<br><br><br>
+
+<div class="row">
+  <div class="col-sm-12">
+    <h3>Peliculas</h3>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-3" *ngFor="let pelicula of peliculas">
+    <app-pelicula
+
+    ></app-pelicula>
+    <button type="button" class="btn btn-info">Pedir transferencia</button>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-sm-6">
+    <button type="button" class="btn btn-light">Anteriores</button>
+  </div>
+  <div class="col-sm-6 alinearDerecha">
+    <button type="button" class="btn btn-light">Siguientes</button>
+  </div>
+</div>
+
+<p style="color: black" align="center">:(</p>
+

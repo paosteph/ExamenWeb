@@ -1,0 +1,69 @@
+<div class="row">
+  <div class="col-sm-12">
+    <h2 class="titulo alinearCentro">Petición de Transferencia</h2>
+  </div>
+</div>
+
+<br><br>
+<div class="row">
+  <div class="col-sm-6" >
+    <div class="col-sm-12">
+      <h3>Usuario</h3>
+    </div>
+    <div class="row">
+      <div class="col-sm-4 alinearCentro" *ngFor="let usuario of usuarios">
+        <app-usuario
+          [nombre]="usuario.nombre"
+          [apellido]="usuario.apellido"
+          [url_foto]="'assets/imagenes/'+usuario.url_foto"
+        ></app-usuario>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6">
+    <div class="col-sm-12">
+      <h3>Actor</h3>
+    </div>
+    <div class="row">
+      <div class="col-sm-8" *ngFor="let actor of actores">
+        <app-actor
+          [nombres]="actor.nombres"
+          [apellidos]="actor.apellidos"
+          [fechaNacimiento]="actor.fechaNacimiento"
+          [numeroPeliculas]="actor.numeroPeliculas"
+          [retirado]="actor.retirado"
+          [url_foto]="'assets/imagenes/'+actor.url_foto"
+        ></app-actor>
+      </div>
+    </div>
+  </div>
+
+</div>
+<br><br><br>
+
+<div class="row">
+  <div class="col-sm-12">
+    <h3>Peliculas</h3>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-sm-3" *ngFor="let pelicula of peliculas">
+    <app-pelicula
+
+    ></app-pelicula>
+    <button type="button" class="btn btn-outline-success">Pedir transferencia</button>
+    <div class="col-sm-12"><br><br></div>
+  </div>
+</div>
+<br>
+<div class="row ">
+  <div class="col-sm-12 alinearCentro">
+    <button type="button" class="btn btn-secondary " >Cargar más</button>
+  </div>
+</div>
+<br><br>
+
+
+

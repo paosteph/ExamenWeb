@@ -7,7 +7,7 @@ export class AutorizacionController{
     @Post('iniciarSesion')
     iniciarSesion(@Body() bodyParams, @Res() response){
 
-        const usuario = bodyParams.usuario;
+        const usuario = bodyParams.correo;
         const password = bodyParams.password;
 
         const cokie = {

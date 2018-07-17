@@ -1,0 +1,96 @@
+<div class="row">
+  <div class="col-sm-12">
+    <br>
+    <br>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-4"></div>
+  <div class="col-sm-4">
+    <div class="row">
+      <div class="col-sm-12">
+        <h3 align="center">Login</h3>
+      </div>
+    </div>
+
+    <div class="container">
+      <form
+        (ngSubmit)="ingresar(formularioUsuario)"
+        #formularioUsuario="ngForm"
+      >
+        <div class="form-group">
+          <label for="exampleInputEmail1">Correo</label>
+
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"
+                 [(ngModel)]="email"
+                 name="email"
+                 required
+                 minlength="3"
+                 pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}"
+                 #emailCampo="ngModel"
+          >
+          <!--pre>
+            errores: {{emailCampo.errors | json}}
+          </pre-->
+
+          <div
+            class="alert alert-warning"
+            role="alert"
+            *ngIf="emailCampo.errors !== null && emailCampo.dirty === true">
+
+            <p *ngIf="emailCampo.errors.required"> El correo es requerido</p>
+            <p *ngIf="emailCampo.errors.minlength"> No puede tener menos de 3 caracters</p>
+            <p *ngIf="emailCampo.errors.pattern"> El correo debe ser valido</p>
+
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"
+                 [(ngModel)]="password"
+                 name="password"
+                 required
+                 #passwordCampo="ngModel"
+          >
+        </div>
+
+        <div *ngIf="passwordCampo.valid" class="form-group">
+          <label for="exampleInputPassword2">Password Confirmation</label>
+          <input type="password" class="form-control" id="exampleInputPassword2" placeholder="passwordConfirmation"
+                 [(ngModel)]="passwordConfirmation"
+                 name="passwordConfirmation"
+                 required
+                 minlength="6"
+                 #passwordConfirmationCampo="ngModel"
+
+          >
+          <div
+            class="alert alert-warning"
+            role="alert"
+            *ngIf="passwordConfirmationCampo.errors!==null &&
+                passwordConfirmationCampo.dirty=== true"
+          >
+            <p *ngIf="passwordConfirmationCampo.errors.required">Password es requerido</p>
+            <p *ngIf="passwordConfirmationCampo.errors.minlength">El password debe de tener mas de 6 caracteres</p>
+          </div>
+        </div>
+
+        <button [disabled]="formularioUsuario.invalid"
+                type="submit" class="btn btn-primary">Ingresar</button>
+      </form>
+      <!--div *ngFor="let user of usuario">
+        <app-ruta-home
+          [nombre]="user.nombre"
+          [apellido]="user.apellido"
+          [url_foto]="'assets/imagenes/'+user.url_foto"
+          [idUsuario]="user.usuarioId"
+        ></app-ruta-home>
+      </div-->
+
+    </div>
+
+  </div>
+
+</div>
