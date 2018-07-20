@@ -1,32 +1,41 @@
 import {Body, Controller, HttpException, HttpStatus, Post, Res} from "@nestjs/common";
 import {PeticionMalaException} from "./exceptions/peticion-mala.exception";
+import {UsuarioService} from "./usuario/usuario.service";
+import {UsuarioEntity} from "./usuario/usuario.entity";
 
 @Controller('Autorizacion')
 export class AutorizacionController{
 
-    @Post('iniciarSesion')
-    iniciarSesion(@Body() bodyParams, @Res() response){
+    constructor(private _usuarioService: UsuarioService){}
 
-        const usuario = bodyParams.correo;
+    @Post('iniciarSesion')
+    async iniciarSesion(@Body() bodyParams, @Res() response){
+
+        const correo = bodyParams.correo;
         const password = bodyParams.password;
 
-        const cokie = {
-            nombre: 'token',
-            valor: 'adrianeguez'
-        };
-        console.log(cokie.nombre);
-        console.log(cokie.valor);
-        if(usuario == 'adrianeguez' && password == 12345678910){
-            return response.cookie(cokie.nombre, cokie.valor).send({mensaje: "Ok"});
+        console.log(correo);
+        console.log(password);
+
+        const usuario:UsuarioEntity = await this._usuarioService.verificarExiste(correo, password);
+
+        //if(correo == 'adrianeguez' && password == 12345678910){
+        if(usuario){
+            const cokie = {
+                nombre: 'web',
+                valor: usuario.nombre + usuario.apellido
+            };
+            return response.cookie(cokie.nombre, cokie.valor)
+                .send({mensaje: usuario.id});
         }else{
-            return response.send({mensaje:"No crea cookie"});
+            return response.send({mensaje:"No existe usuario"});
         }
     }
 
     @Post('cerrarSesion')
     cerrarSesion(@Res() response){
         const cokie = {
-            nombre: 'token',
+            nombre: 'web',
             valor: 'undefined'
         };
 

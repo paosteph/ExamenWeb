@@ -1,0 +1,9 @@
+.actor{
+  cursor: pointer;
+  padding: 15px;
+}
+
+.actor:hover{
+  color: navy;
+  border-color: navy;
+}

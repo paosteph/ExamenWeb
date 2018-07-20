@@ -30,9 +30,6 @@
                  pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}"
                  #emailCampo="ngModel"
           >
-          <!--pre>
-            errores: {{emailCampo.errors | json}}
-          </pre-->
 
           <div
             class="alert alert-warning"
@@ -52,45 +49,18 @@
                  [(ngModel)]="password"
                  name="password"
                  required
-                 #passwordCampo="ngModel"
           >
         </div>
 
-        <div *ngIf="passwordCampo.valid" class="form-group">
-          <label for="exampleInputPassword2">Password Confirmation</label>
-          <input type="password" class="form-control" id="exampleInputPassword2" placeholder="passwordConfirmation"
-                 [(ngModel)]="passwordConfirmation"
-                 name="passwordConfirmation"
-                 required
-                 minlength="6"
-                 #passwordConfirmationCampo="ngModel"
-
-          >
-          <div
-            class="alert alert-warning"
-            role="alert"
-            *ngIf="passwordConfirmationCampo.errors!==null &&
-                passwordConfirmationCampo.dirty=== true"
-          >
-            <p *ngIf="passwordConfirmationCampo.errors.required">Password es requerido</p>
-            <p *ngIf="passwordConfirmationCampo.errors.minlength">El password debe de tener mas de 6 caracteres</p>
-          </div>
-        </div>
 
         <button [disabled]="formularioUsuario.invalid"
                 type="submit" class="btn btn-primary">Ingresar</button>
       </form>
-      <!--div *ngFor="let user of usuario">
-        <app-ruta-home
-          [nombre]="user.nombre"
-          [apellido]="user.apellido"
-          [url_foto]="'assets/imagenes/'+user.url_foto"
-          [idUsuario]="user.usuarioId"
-        ></app-ruta-home>
-      </div-->
 
     </div>
 
   </div>
 
 </div>
+
+<app-ruta-usuario></app-ruta-usuario>

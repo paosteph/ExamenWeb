@@ -1,6 +1,12 @@
 <nav class="navbar navbar-light bg-light">
-  <form class="form-inline">
-    <input class="form-control mr-sm-2" type="search" placeholder="Buscar">
+  <form class="form-inline"
+        (ngSubmit)="buscar(formulario)"
+        #formulario="ngForm"
+  >
+    <input class="form-control mr-sm-2" type="search" placeholder="Buscar"
+      [(ngModel)]="palabraBuscada"
+      name="palabraBuscada"
+    >
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
   </form>
 </nav>
@@ -12,13 +18,16 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-sm-3 alinearCentro" *ngFor="let usuario of usuarios">
+  <div class="col-sm-3 alinearCentro" *ngFor="let usuario of usuariosActuales">
     <app-usuario
       [nombre]="usuario.nombre"
       [apellido]="usuario.apellido"
       [url_foto]="'assets/imagenes/'+usuario.url_foto"
     ></app-usuario>
-    <button type="button" class="btn btn-outline-info">Visitar</button>
+    <div *ngIf="usuariosActuales.size===0">
+      <p>No existen coincidencias</p>
+    </div>
+    <button type="button" class="btn btn-outline-info" (click)="visitarUsuario(usuario.id)">Visitar</button>
   </div>
 </div>
 <br>
@@ -40,7 +49,7 @@
 </div>
 
 <div class="row">
-  <div class="col-sm-3" *ngFor="let actor of actores">
+  <div class="col-sm-3" *ngFor="let actor of actoresActuales">
     <app-actor
       [nombres]="actor.nombres"
       [apellidos]="actor.apellidos"
@@ -69,7 +78,7 @@
 </div>
 
 <div class="row">
-  <div class="col-sm-3" *ngFor="let pelicula of peliculas">
+  <div class="col-sm-3" *ngFor="let pelicula of peliculasActuales">
     <app-pelicula
 
     ></app-pelicula>

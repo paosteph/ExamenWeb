@@ -7,6 +7,36 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RutaPerfilComponent implements OnInit {
 
+  usuarios = [
+    {
+      nombre: "actor1",
+      apellido: "apellido1",
+      url_foto: "pao.jpg"
+    }];
+
+  unUsuario = {
+    nombre: "actor1",
+    apellido: "apellido1",
+    url_foto: "pao.jpg"
+  };
+
+  usuariosPeticiones = [
+    {
+      nombre: "actor1",
+      apellido: "apellido1",
+      url_foto: "pao.jpg"
+    },
+    {
+      nombre: "actor1",
+      apellido: "apellido1",
+      url_foto: "pao.jpg"
+    }
+    ];
+
+  peliculas = [
+    {},{}
+  ];
+
   constructor() { }
 
   ngOnInit() {

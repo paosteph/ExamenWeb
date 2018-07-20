@@ -12,10 +12,15 @@ export class UsuarioController{
         return this._usuarioService.listarTodos();
     }
 
-    @Get('listarUnUsuario/:id')
+    @Get('listarPorActor/:id')
     async listarElementosUsuario(@Param() paramParams){
-        return this._usuarioService.listarUnUsuario(paramParams.id);
+        return this._usuarioService.listarActoresPorUsuario(paramParams.id);
     }
+
+    // @Get('listarUsuarioTodo/:id')
+    // async listarUsuarioTodo(@Param() paramParams){
+    //     return this._usuarioService.listarUsuarioTodo(paramParams.id);
+    // }
 
     @Get('obtener/:id')
     async obtenerUno(@Param() paramParams): Promise<UsuarioEntity> {
@@ -28,5 +33,10 @@ export class UsuarioController{
         @Body('password') password, @Body('url_foto') url_foto
     ){
         return this._usuarioService.crearUno(nombre, apellido, correo, password, url_foto);
+    }
+
+    @Post('buscarLike')
+    async encontrarUsuariosLike(@Body('palabra') palabra){
+        return this._usuarioService.encontrarActoresLike(palabra);
     }
 }

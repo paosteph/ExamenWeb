@@ -14,9 +14,9 @@ export class ActorController{
         return this._actorService.listarActores();
     }
 
-    @Get('listarPorUsuario/:id')
+    @Get('listarPeliculas/:id')
     async listarActoresUnUsuario(@Param() paramParams){
-        return this._actorService.listarActoresUnUsuario(paramParams.id);
+        return this._actorService.listarActorPeliculas(paramParams.id);
     }
 
     @Post('crear')
@@ -33,6 +33,12 @@ export class ActorController{
     @Get('obtener/:id')
     async obtenerUno(@Param() paramParams): Promise<ActorEntity> {
         return this._actorService.obtenerUno(paramParams.id);
+    }
+
+
+    @Post('buscarLike')
+    async encontrarActoresLike(@Body('palabra') palabra){
+        return this._actorService.encontrarActoresLike(palabra);
     }
 
 }

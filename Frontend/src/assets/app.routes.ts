@@ -9,11 +9,11 @@ import {RutaSeleccionComponent} from "../app/ruta-seleccion/ruta-seleccion.compo
 
 export const ARREGLO_RUTAS: Routes = [
   {
-    path: 'home',
+    path: 'home/:usuarioHomeId',
     component: RutaHomeComponent,
     children: [
       {
-        path: 'perfil/usuarioId',
+        path: 'perfil/:usuarioPerfilId',
         component: RutaPerfilComponent
       },
       {
@@ -21,29 +21,29 @@ export const ARREGLO_RUTAS: Routes = [
         component: RutaUsuarioComponent,
       },
       {
-        path: 'usuario/:usuarioId/usuarioVisitado/:usuarioVisitadoId',
+        path: 'peticion/:usuarioSesion/:usuarioVisitadoId',
         component: RutaPeticionComponent
       },
       {
-        path: 'usuario/:usuarioId/peliculaSeleccionada/:peliculaId',
+        path: 'seleccion/:usuarioSolicitante/:usuarioSolicitado/:peliculaId',
         component: RutaSeleccionComponent
-      },
-      {
-        path: '',
-        redirectTo: 'home',
-        pathMatch: 'full'
       }
     ]
+  },
+  {
+    path: '',
+    redirectTo: 'home/:usuarioHome',
+    pathMatch: 'full'
   },
   {
     path: 'login',
     component: RutaLoginComponent
   },
-  {
-    path: '',
-    redirectTo: 'login',
-    pathMatch: 'full'
-  },
+  // {
+  //   path: '',
+  //   redirectTo: 'login',
+  //   pathMatch: 'full'
+  // },
   {
     path: '**',
     component: RutaNoEncontradoComponent

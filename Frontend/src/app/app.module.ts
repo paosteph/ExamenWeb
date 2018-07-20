@@ -29,7 +29,7 @@ import { RutaSeleccionComponent } from './ruta-seleccion/ruta-seleccion.componen
     PeliculaComponent,
     ActorComponent,
     RutaPeticionComponent,
-    RutaSeleccionComponent
+    RutaSeleccionComponent,
   ],
   imports: [
     BrowserModule,

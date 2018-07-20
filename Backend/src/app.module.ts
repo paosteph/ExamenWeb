@@ -8,6 +8,13 @@ import {UsuarioService} from "./usuario/usuario.service";
 import {ActorModule} from "./actor/actor.module";
 import {UsuarioModule} from "./usuario/usuario.module";
 import {PeliculaModule} from "./pelicula/pelicula.module";
+import {AutorizacionController} from "./autorizacion.controller";
+import {UsuarioEntity} from "./usuario/usuario.entity";
+import {ActorEntity} from "./actor/actor.entity";
+import {PeliculaEntity} from "./pelicula/pelicula.entity";
+import {ActorService} from "./actor/actor.service";
+import {UsuarioController} from "./usuario/usuario.controller";
+import {PeticionModule} from "./peticion/peticion.module";
 
 @Module({
   imports: [
@@ -21,11 +28,13 @@ import {PeliculaModule} from "./pelicula/pelicula.module";
           entities: [__dirname + '/../**/*.entity{.ts,.js}'],
           synchronize: true,
       }),
+      //TypeOrmModule.forFeature([UsuarioEntity, ActorEntity, PeliculaEntity]),
       ActorModule,
       UsuarioModule,
       PeliculaModule,
+      PeticionModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, AutorizacionController],
   providers: [AppService],
 })
 export class AppModule {

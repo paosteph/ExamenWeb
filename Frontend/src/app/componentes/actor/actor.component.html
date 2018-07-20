@@ -1,14 +1,27 @@
-<div class="row">
-  <div class="col-sm-6" >
-    <p>{{nombres}}</p>
-    <p>{{apellidos}}</p>
-    <p>{{fechaNacimiento}}</p>
-    <p>{{numeroPeliculas}}</p>
-    <p>{{retirado}}</p>
-  </div>
-  <div class="col-sm-6 view zoom">
-    <img [src]="url_foto" class="img-fluid" alt="">
-  </div>
 
+<div class="card actor">
+  <img [src]="url_foto" class="card-img-top rounded" alt="">
+  <div class="body">
+    <h5 class="card-title">{{nombres}} {{apellidos}}</h5>
+
+    <table class="table table-borderless table-responsive">
+      <tbody>
+      <tr>
+        <th>Fecha Nacimiento</th>
+        <td>{{fechaNacimiento}}</td>
+      </tr>
+      <tr>
+        <th>Nº películas</th>
+        <td>{{numeroPeliculas}}</td>
+      </tr>
+      <tr>
+        <th>Retirado</th>
+        <td *ngIf="retirado; else elseBlock">Si</td>
+        <ng-template #elseBlock>No</ng-template>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
+<br><br>
 

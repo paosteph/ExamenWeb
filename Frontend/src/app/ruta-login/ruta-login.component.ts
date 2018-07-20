@@ -8,54 +8,44 @@ import {HttpClient} from "@angular/common/http";
   styleUrls: ['./ruta-login.component.css']
 })
 export class RutaLoginComponent implements OnInit {
-
-  ngOnInit() {
-  }
-
   email;
   password;
   passwordConfirmation;
 
+  ngOnInit() {
+  }
 
   constructor(private _router: Router, private _httpClient: HttpClient){
 
   }
 
-
   ingresar(formulario){
-    //console.log(titulo.innerText);
     const controles = formulario.controls;
+    const correo = controles.email;
     const password = controles.password.value;
-    const passwordConfirmation = controles.passwordConfirmation.value;
-    if(password === passwordConfirmation){
-      alert("my buen");
-      this.irAPerfilDeUsuario();
-    }else{
-      this.password = undefined;
-      this.passwordConfirmation = undefined;
-      alert("muy mal");
-    }
+    this.validarUsuario();
   }
 
-  irAPerfilDeUsuario(){
-    const ruta = ['/home']; //segemntos
-    this._router.navigate(ruta);
+  validarUsuario(){
+    const url = 'http://localhost:3000/Autorizacion/iniciarSesion';
 
-    const url = 'https://192.168.1.6:3000/Usuario/obtener/';
-
-    const requestHttp$ = this._httpClient.get(url);
-    /*const requestHttp$ = this._httpClient.post(url, {
-      nombre:  'Pao',
-      edad: 29,
-      casado: false
-    });*/
+    const requestHttp$ = this._httpClient.post(url, {
+      correo: this.email,
+      password: this.password
+    });
 
     requestHttp$.subscribe(
-      (respuestaOK)=>{
-        console.log(respuestaOK);
+      (respuestaData)=>{
+        const usuario:any = respuestaData['mensaje'];
+        if(usuario !== 'No existe usuario' ){
+          console.log(usuario);
+          const ruta = ['/home',usuario];
+          this._router.navigate(ruta);
+        }
+        console.log(respuestaData);
       },
       (respuestError)=>{
-        console.log(respuestError);
+        console.log("Error !",respuestError);
       },
       ()=>{
         //completa
@@ -63,5 +53,12 @@ export class RutaLoginComponent implements OnInit {
       }
     );
     console.log('Fin');
+
   }
+
+  irAPerfilDeUsuario(idUsuario: number){
+    const ruta = ['/home','usuario',idUsuario]; //segemntos
+    this._router.navigate(ruta);
+  }
+
 }

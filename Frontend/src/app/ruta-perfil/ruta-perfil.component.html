@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-sm-12">
-    <h2 class="titulo alinearCentro">Selección de Transferencia</h2>
+    <h2 class="titulo alinearCentro">Perfil</h2>
   </div>
 </div>
 
@@ -8,10 +8,11 @@
 <div class="row">
   <div class="col-sm-6" >
     <div class="col-sm-12">
-      <h3>Usuario</h3>
+      <h5>Usuario</h5>
     </div>
+
     <div class="row">
-      <div class="col-sm-4 alinearCentro" *ngFor="let usuario of usuarios">
+      <div class="col-sm-4 " *ngFor="let usuario of usuarios">
         <app-usuario
           [nombre]="usuario.nombre"
           [apellido]="usuario.apellido"
@@ -20,3 +21,128 @@
       </div>
     </div>
   </div>
+</div>
+<br><br><br>
+
+<div class="row">
+  <div class="col-sm-12">
+    <h3>Peticiones</h3>
+  </div>
+</div>
+
+<div class="row">
+  <!--<h5>Peticiones En espera</h5>-->
+  <div class="row">
+    <div class="col-sm-4"></div>
+
+    <div class="col-sm-4" *ngFor="let usuarioPerfil of usuarios">
+      <div class="row">
+
+        <div class="col-sm-3">
+          <app-usuario
+            [nombre]="usuarioPerfil.nombre"
+            [apellido]="usuarioPerfil.apellido"
+            [url_foto]="'assets/imagenes/'+usuarioPerfil.url_foto"
+          ></app-usuario>
+
+        </div>
+
+        <div class="col-sm-4">
+          <!--<img src="assets/imagenes/flecha.png" class="img-fluid" alt="">-->
+        </div>
+
+        <div class="col-sm-4 alinearVertical">
+          <h2>EN ESPERA</h2>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!--<h2>Items</h2>-->
+  <div class="row" *ngFor="let pelicula of peliculas">
+
+    <div class="col-sm-3"></div>
+
+        <div class="col-sm-4">
+          <app-pelicula
+
+          ></app-pelicula>
+
+        </div>
+
+        <div class="col-sm-1">
+          <img src="assets/imagenes/flecha.png" class="img-fluid" alt="">
+        </div>
+
+        <div class="col-sm-4">
+          <app-pelicula
+
+          ></app-pelicula>
+
+        </div>
+  </div>
+
+</div>
+
+<br><br><br>
+<div class="row" *ngFor="let pelicula of peliculas">
+  <!--<h5>Peticiones Por Aceptar o Rechazar</h5>-->
+  <div class="row">
+    <div class="col-sm-4"></div>
+
+    <div class="col-sm-4" >
+      <div class="row">
+
+        <div class="col-sm-4 alinearVertical">
+          <div class="row">
+            <button type="button" class="btn btn-success ">Aceptar</button>
+          </div>
+          <div class="col-sm-12"><br></div>
+          <div class="row">
+            <button type="button" class="btn btn-danger">Rechazar</button>
+          </div>
+        </div>
+
+        <div class="col-sm-4"></div>
+
+        <div class="col-sm-3">
+          <app-usuario
+            [nombre]="unUsuario.nombre"
+            [apellido]="unUsuario.apellido"
+            [url_foto]="'assets/imagenes/'+unUsuario.url_foto"
+          ></app-usuario>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!--<h2>Items</h2>-->
+  <div class="row"   >
+
+    <div class="col-sm-3"></div>
+
+    <div class="col-sm-4">
+      <app-pelicula
+
+      ></app-pelicula>
+
+    </div>
+
+    <div class="col-sm-1">
+      <img src="assets/imagenes/flecha.png" class="img-fluid" alt="">
+    </div>
+
+    <div class="col-sm-4">
+      <app-pelicula
+
+      ></app-pelicula>
+
+    </div>
+  </div>
+
+</div>
+

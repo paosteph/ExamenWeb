@@ -11,7 +11,7 @@
       <h3>Usuario</h3>
     </div>
     <div class="row">
-      <div class="col-sm-4 alinearCentro" *ngFor="let usuario of usuarios">
+      <div class="col-sm-4 " *ngFor="let usuario of usuarioVisitado">
         <app-usuario
           [nombre]="usuario.nombre"
           [apellido]="usuario.apellido"
@@ -26,7 +26,7 @@
       <h3>Actor</h3>
     </div>
     <div class="row">
-      <div class="col-sm-8" *ngFor="let actor of actores">
+      <div class="col-sm-8" *ngFor="let actor of peliculasActor">
         <app-actor
           [nombres]="actor.nombres"
           [apellidos]="actor.apellidos"
@@ -48,12 +48,16 @@
   </div>
 </div>
 <br>
-<div class="row">
-  <div class="col-sm-3" *ngFor="let pelicula of peliculas">
+<div class="row" *ngFor="let actor of peliculasActor">
+  <div class="col-sm-3" *ngFor="let pelicula of actor.peliculas">
     <app-pelicula
-
+      [nombre]="pelicula.nombre"
+      [anioLanzamiento]="pelicula.anioLanzamiento"
+      [rating]="pelicula.rating"
+      [actoresPrincipales]="pelicula.actoresPrincipales"
+      [sinopsis]="pelicula.sinopsis"
     ></app-pelicula>
-    <button type="button" class="btn btn-outline-success">Pedir transferencia</button>
+    <button type="button" class="btn btn-group-vertical btn-outline-success" (click)="peticionTransferencia(pelicula.id)">Pedir transferencia</button>
     <div class="col-sm-12"><br><br></div>
   </div>
 </div>

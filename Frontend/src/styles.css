@@ -5,3 +5,7 @@
 .alinearDerecha{
   text-align: right;
 }
+
+.alinearVertical{
+  vertical-align: middle;
+}

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 
 @Component({
@@ -14,40 +14,55 @@ export class RutaHomeComponent implements OnInit {
   @Input() idUsuario: number;
   @Output() irAPerfil: EventEmitter<number> = new EventEmitter<number>();
 
-  usuario = [
-    {
-      nombre: 'pao',
-      apellido: 'guamani',
-      url_foto: 'pao.jpg',
-      usuarioId: 1,
-    }];
+  // user =
+  //   {
+  //     nombre: 'pao',
+  //     apellido: 'guamani',
+  //     url_foto: 'pao.jpg',
+  //     usuarioId: 1,
+  //   };
+  user = {};
+  url: string;
+  idUsuarioLogin: any;
 
-
-  constructor(private _router: Router, private _httpClient: HttpClient) { }
+  constructor(private _router: Router, private _httpClient: HttpClient, private _activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    const url = 'https://192.168.1.6:3000/Usuario/obtener/'+this.idUsuario;
 
-    const requestHttp$ = this._httpClient.get(url);
-    /*const requestHttp$ = this._httpClient.post(url, {
-      nombre:  'Pao',
-      edad: 29,
-      casado: false
-    });*/
+    const observableParametrosRutas$ = this._activatedRoute.params;
+    observableParametrosRutas$.subscribe(
+      (parametros)=>{
+        console.log("R",parametros);
+        this.idUsuarioLogin = parametros['usuarioHomeId'];
+        console.log('id logeo',this.idUsuarioLogin);
 
-    requestHttp$.subscribe(
-      (data)=>{
-        console.log(data);
+        this.url = 'http://localhost:3000/Usuario/obtener/'+this.idUsuarioLogin;
+
       },
-      (data)=>{
-        console.log(data);
+      (error)=>{
+        console.log('Error !',error);
       },
       ()=>{
         //completa
-        console.log('completado');
       }
     );
-    console.log('Fin');
+
+    const requestHttp$ = this._httpClient.get(this.url);
+    requestHttp$.subscribe(
+      (data)=>{
+        this.user = data;
+        console.log("Usuario de Home",data);
+        const ruta = ['/home',this.idUsuarioLogin,'usuario',this.idUsuarioLogin];
+        this._router.navigate(ruta);
+      },
+      (error)=>{
+        console.log('Error !',error);
+      },
+      ()=>{
+        //completa
+      }
+    );
+
   }
 
 }

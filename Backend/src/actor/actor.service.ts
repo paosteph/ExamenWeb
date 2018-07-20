@@ -4,6 +4,8 @@ import {ActorEntity} from "./actor.entity";
 import {InjectRepository} from "@nestjs/typeorm";
 import {UsuarioService} from "../usuario/usuario.service";
 import {PeliculaEntity} from "../pelicula/pelicula.entity";
+import {UsuarioEntity} from "../usuario/usuario.entity";
+import {PeliculaService} from "../pelicula/pelicula.service";
 
 @Injectable()
 export class ActorService{
@@ -11,32 +13,31 @@ export class ActorService{
     constructor(
         @InjectRepository(ActorEntity)
         private readonly _actorRepositorio: Repository<ActorEntity>,
-        private _usuarioService: UsuarioService
-
+        private _usuarioService: UsuarioService,
     ){}
 
     async listarActores(): Promise<ActorEntity[]>{
         return await this._actorRepositorio.find({
             order: {
                 nombres: 'ASC'
-            },
-            skip: 0,
-            take: 4
+            }
         });
     }
 
-    async listarActoresUnUsuario(idUsuario){
+    async listarActorPeliculas(idActor){
         return this._actorRepositorio.find({
             relations: ["peliculas"],
             where: {
-                id: idUsuario
+                id: idActor
             },
             order: {
                 nombres: "ASC"
-            },
-            skip: 0,
-            take: 4
+            }
         });
+    }
+
+    async obtenerPeliculasPorActor(id){
+        return await this._actorRepositorio.findOne(id, {relations: ['peliculas']})
     }
 
     async crearUno(nombres, apellidos, fechaNacimiento, numeroPeliculas, retirado, url_foto, idUsuario){
@@ -59,16 +60,13 @@ export class ActorService{
         return await this._actorRepositorio.findOne(id);
     }
 
-    async obtenerActorPadre(idUsuario: number){
-        return await this._actorRepositorio.findOne({
-            where: {usuarioId: idUsuario}
-        });
-    }
+    async encontrarActoresLike(palabra: string){
+        return await this._actorRepositorio
+            .createQueryBuilder("actor")
+            .where("upper(actor.nombres) like :palabra", {palabra: '%'+palabra+'%'})
+            .orWhere("upper(actor.apellidos) like :palabra", {palabra: '%'+palabra+'%'})
+            .getMany();
 
-    async transferirActorDePelicula(idUsuario: number, pelicula: PeliculaEntity){
-        let actor = await this.obtenerActorPadre(idUsuario);
-        actor.peliculas = [pelicula];
-        return await this._actorRepositorio.save(actor);
     }
 
 }

@@ -26,8 +26,8 @@ export class ActorEntity{
     url_foto_actor: string;
 
     @OneToMany(type => PeliculaEntity, pelicula => pelicula.actor)
-    peliculas: PeliculaEntity[]
+    peliculas: PeliculaEntity[];
 
     @ManyToOne(type => UsuarioEntity, usuario => usuario.actores)
-    usuario: UsuarioEntity
+    usuario: UsuarioEntity;
 }

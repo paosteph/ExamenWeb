@@ -45,4 +45,9 @@ export class PeliculaController{
     async rechazarTransferencia(@Body('idPelicula') idPelicula){
         return this._peliculaService.rechazarTrasnferencia(idPelicula);
     }
+
+    @Post('buscarLike')
+    async buscarPeliculaLike(@Body() bodyParams){
+        return this._peliculaService.encontrarActoresLike(bodyParams.palabra);
+    }
 }

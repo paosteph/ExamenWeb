@@ -1,5 +1,6 @@
-import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn} from "typeorm";
 import {ActorEntity} from "../actor/actor.entity";
+import {PeticionEntity} from "../peticion/peticion.entity";
 
 @Entity('usuario')
 export class UsuarioEntity{
@@ -22,5 +23,12 @@ export class UsuarioEntity{
     url_foto: string;
 
     @OneToMany(type => ActorEntity, actor => actor.usuario)
-    actores: ActorEntity[]
+    actores: ActorEntity[];
+
+    @OneToMany(type => PeticionEntity, peticion => peticion.usuarioSolicitado)
+    peticionesRecibidas: PeticionEntity[];
+
+    @OneToMany(type => PeticionEntity, peticion => peticion.usuarioSolicitante)
+    peticionesEnviadas: PeticionEntity[];
+
 }

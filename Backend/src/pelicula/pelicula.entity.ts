@@ -1,5 +1,6 @@
-import {Column, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {ActorEntity} from "../actor/actor.entity";
+import {PeticionEntity} from "../peticion/peticion.entity";
 
 @Entity('pelicula')
 export class PeliculaEntity{
@@ -29,4 +30,7 @@ export class PeliculaEntity{
 
     @ManyToOne(type => ActorEntity, actor => actor.peliculas)
     actor: ActorEntity
+
+    @OneToMany(type => PeticionEntity, peticion => peticion.pelicula)
+    peticiones: PeticionEntity[];
 }

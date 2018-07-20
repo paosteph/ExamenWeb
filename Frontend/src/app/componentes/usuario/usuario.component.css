@@ -1,3 +1,10 @@
-.efecto:hover{
-  zoom: 150%
+.usuario{
+  cursor: pointer;
 }
+
+.usuario:hover{
+  color: royalblue;
+  border-color: royalblue;
+}
+
+

@@ -17,7 +17,11 @@ export class PeliculaService{
     ){}
 
     async listarTodas(): Promise<PeliculaEntity[]> {
-        return await this._peliculaRepositorio.find()
+        return await this._peliculaRepositorio.find({
+            order: {
+                nombre: 'ASC'
+            }
+        });
     }
 
     async crearUno(
@@ -45,9 +49,13 @@ export class PeliculaService{
     }
 
     async pedirTransferencia(idPelicula: number, idSolicitante: number){
-        //const usuario = await this._usuarioService.obtenerUno(idUsuario);
         const pelicula = await this._peliculaRepositorio.findOne(
-            {where: {id: idPelicula, solicitudTransferencia: false}}
+            {
+                where: {
+                    id: idPelicula,
+                    solicitudTransferencia: false
+                }
+            }
             );
         pelicula.solicitudTransferencia = true;
         pelicula.solicitanteId = idSolicitante;
@@ -57,7 +65,12 @@ export class PeliculaService{
 
     async aceptarTrasnferencia(idPelicula: number){
         const pelicula = await this._peliculaRepositorio.findOne(
-                {where: {id: idPelicula, solicitudTransferencia: true}}
+                {
+                    where: {
+                        id: idPelicula,
+                        solicitudTransferencia: true
+                    }
+                }
             );
         const idUsuarioSolicitante = pelicula.solicitanteId;
         const actor = await this._actorService.obtenerUno(idUsuarioSolicitante);
@@ -71,13 +84,27 @@ export class PeliculaService{
 
     async rechazarTrasnferencia(idPelicula: number){
         const pelicula = await this._peliculaRepositorio.findOne(
-            {where: {id: idPelicula, solicitudTransferencia: true}}
+            {
+                where: {
+                    id: idPelicula,
+                    solicitudTransferencia: true
+                }
+            }
         );
         pelicula.solicitudTransferencia = false;
         pelicula.solicitanteId = 0;
         return await this._peliculaRepositorio.save(pelicula);
 
     }
+
+    async encontrarActoresLike(palabra: string){
+        return await this._peliculaRepositorio
+            .createQueryBuilder("pelicula")
+            .where("upper(pelicula.nombre) like :palabra", {palabra: '%'+palabra+'%'})
+            .getMany();
+
+    }
+
 
 }
 
