@@ -31,6 +31,10 @@ export class PeliculaEntity{
     @ManyToOne(type => ActorEntity, actor => actor.peliculas)
     actor: ActorEntity
 
-    @OneToMany(type => PeticionEntity, peticion => peticion.pelicula)
-    peticiones: PeticionEntity[];
+    @OneToMany(type => PeticionEntity, peticion => peticion.peliculaSolicitante)
+    peticionesEnviadas: PeticionEntity[];
+
+    @OneToMany(type => PeticionEntity, peticion => peticion.peliculaSolicitada)
+    peticionesRecibidas: PeticionEntity[];
+
 }

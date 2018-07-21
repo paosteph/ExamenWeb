@@ -58,6 +58,13 @@ export class ActorService{
 
     async obtenerUno(id: number): Promise<ActorEntity>{
         return await this._actorRepositorio.findOne(id);
+
+    }
+
+    async buscarPorUsuario(idUsuario: number): Promise<ActorEntity>{
+        return await this._actorRepositorio.createQueryBuilder("actor")
+            .where("actor.usuarioId = :id", {id: idUsuario})
+            .getOne();
     }
 
     async encontrarActoresLike(palabra: string){

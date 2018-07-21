@@ -16,12 +16,21 @@ export class PeticionEntity{
     @Column()
     realizada: boolean;
 
-    @ManyToOne(type => UsuarioEntity, usuario => usuario.peticionesEnviadas)
-    usuarioSolicitante: UsuarioEntity;
+    @Column('int')
+    usuarioSolicitante: number;
 
-    @ManyToOne(type => UsuarioEntity, usuario => usuario.peticionesRecibidas)
-    usuarioSolicitado: UsuarioEntity;
+    @Column('int')
+    usuarioSolicitado: number;
 
-    @ManyToOne(type => PeliculaEntity, pelicula => pelicula.peticiones)
-    pelicula: PeliculaEntity;
+    @Column({nullable: true})
+    peliculaSolicitanteId: number;
+
+    @Column({nullable: true})
+    peliculaSolicitadaId: number;
+
+    @ManyToOne(type => PeliculaEntity, pelicula => pelicula.peticionesEnviadas)
+    peliculaSolicitante: PeliculaEntity;
+
+    @ManyToOne(type => PeliculaEntity, pelicula => pelicula.peticionesRecibidas)
+    peliculaSolicitada: PeliculaEntity;
 }

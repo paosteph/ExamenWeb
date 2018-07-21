@@ -15,7 +15,7 @@ export class PeliculaController{
     }
 
     @Post('crear')
-    @UsePipes(new ActorPipe(ACTOR_SCHEMA))
+    //@UsePipes(new ActorPipe(ACTOR_SCHEMA))
     async crearUno(
         @Body('nombre') nombre, @Body('anioLanzamiento') anioLanzamiento, @Body('rating') rating,
         @Body('actoresPrincipales') actoresPrincipales, @Body('sinopsis') sinopsis, @Body('idActor') idActor
@@ -27,6 +27,11 @@ export class PeliculaController{
     @Get('obtener/:id')
     async obtenerUno(@Param() paramParams): Promise<PeliculaEntity> {
         return this._peliculaService.obtenerUno(paramParams.id);
+    }
+
+    @Get('buscarUsuario/:id')
+    async buscarUsuario(@Param() paramParams){
+        return this._peliculaService.buscarUsuario(paramParams.id);
     }
 
     @Post('transferir')

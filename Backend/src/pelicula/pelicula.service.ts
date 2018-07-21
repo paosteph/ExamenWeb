@@ -5,6 +5,7 @@ import {Repository} from "typeorm";
 import {ActorService} from "../actor/actor.service";
 import {UsuarioService} from "../usuario/usuario.service";
 import {ActorEntity} from "../actor/actor.entity";
+import {UsuarioEntity} from "../usuario/usuario.entity";
 
 @Injectable()
 export class PeliculaService{
@@ -40,8 +41,27 @@ export class PeliculaService{
         return await this._peliculaRepositorio.save(pelicula);
     }
 
+    async guardar(pelicula: PeliculaEntity){
+        return this._peliculaRepositorio.save(pelicula);
+    }
+
     async obtenerUno(id: number): Promise<PeliculaEntity>{
         return await this._peliculaRepositorio.findOne(id);
+    }
+
+    // async buscarActorPadre(idPelicula){
+    //     return await this._peliculaRepositorio.createQueryBuilder("pelicula")
+    //         .where("pelicula.actorId = :id", {id: idPelicula})
+    //         .getOne();
+    // }
+
+    async buscarUsuario(idPelicula){
+        return await this._peliculaRepositorio.createQueryBuilder('pelicula')
+            .innerJoinAndSelect('pelicula.actor','actor')
+            .innerJoinAndSelect('actor.usuario',"usuario")
+            .where("pelicula.id = :id", {id: idPelicula})
+            .printSql()
+            .getOne();
     }
 
     async eliminar(pelicula){
@@ -73,7 +93,7 @@ export class PeliculaService{
                 }
             );
         const idUsuarioSolicitante = pelicula.solicitanteId;
-        const actor = await this._actorService.obtenerUno(idUsuarioSolicitante);
+        const actor = await this._actorService.buscarPorUsuario(idUsuarioSolicitante);
         //console.log(actor);
         pelicula.solicitudTransferencia = false;
         pelicula.solicitanteId = 0;

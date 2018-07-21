@@ -1,4 +1,4 @@
-import {Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn} from "typeorm";
 import {PeliculaEntity} from "../pelicula/pelicula.entity";
 import {UsuarioEntity} from "../usuario/usuario.entity";
 
@@ -28,6 +28,7 @@ export class ActorEntity{
     @OneToMany(type => PeliculaEntity, pelicula => pelicula.actor)
     peliculas: PeliculaEntity[];
 
-    @ManyToOne(type => UsuarioEntity, usuario => usuario.actores)
+    @OneToOne(type => UsuarioEntity, usuario => usuario.actor)
+    @JoinColumn()
     usuario: UsuarioEntity;
 }

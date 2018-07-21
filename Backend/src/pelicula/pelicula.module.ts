@@ -10,6 +10,7 @@ import {UsuarioModule} from "../usuario/usuario.module";
     imports: [TypeOrmModule.forFeature([PeliculaEntity]), ActorModule, UsuarioModule],
     providers: [PeliculaService],
     controllers: [PeliculaController],
+    exports: [PeliculaService],
 })
 
 export class PeliculaModule{}

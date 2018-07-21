@@ -35,6 +35,11 @@ export class ActorController{
         return this._actorService.obtenerUno(paramParams.id);
     }
 
+    @Get('buscarPorUsuario/:id')
+    async buscarPorUsuario(@Param() paramParams): Promise<ActorEntity> {
+        return this._actorService.buscarPorUsuario(paramParams.id);
+    }
+
 
     @Post('buscarLike')
     async encontrarActoresLike(@Body('palabra') palabra){

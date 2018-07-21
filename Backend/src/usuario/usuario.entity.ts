@@ -22,13 +22,13 @@ export class UsuarioEntity{
     @Column({length: 50})
     url_foto: string;
 
-    @OneToMany(type => ActorEntity, actor => actor.usuario)
-    actores: ActorEntity[];
+    @OneToOne(type => ActorEntity, actor => actor.usuario)
+    actor: ActorEntity;
 
-    @OneToMany(type => PeticionEntity, peticion => peticion.usuarioSolicitado)
-    peticionesRecibidas: PeticionEntity[];
-
-    @OneToMany(type => PeticionEntity, peticion => peticion.usuarioSolicitante)
-    peticionesEnviadas: PeticionEntity[];
+    // @OneToMany(type => PeticionEntity, peticion => peticion.usuarioSolicitado)
+    // peticionesRecibidas: PeticionEntity[];
+    //
+    // @OneToMany(type => PeticionEntity, peticion => peticion.usuarioSolicitante)
+    // peticionesEnviadas: PeticionEntity[];
 
 }
