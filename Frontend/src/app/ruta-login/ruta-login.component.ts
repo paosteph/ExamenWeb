@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-ruta-login',
@@ -11,11 +12,14 @@ export class RutaLoginComponent implements OnInit {
   email;
   password;
   passwordConfirmation;
+  cookieValue = 'UNKNOWN';
+  usuario:any;
 
   ngOnInit() {
+
   }
 
-  constructor(private _router: Router, private _httpClient: HttpClient){
+  constructor(private _router: Router, private _httpClient: HttpClient, private cookieService: CookieService){
 
   }
 
@@ -36,10 +40,14 @@ export class RutaLoginComponent implements OnInit {
 
     requestHttp$.subscribe(
       (respuestaData)=>{
-        const usuario:any = respuestaData['mensaje'];
-        if(usuario !== 'No existe usuario' ){
-          console.log(usuario);
-          const ruta = ['/home',usuario];
+        this.usuario = respuestaData['mensaje'];
+        if(this.usuario !== 'No existe usuario' ){
+          console.log(this.usuario);
+
+          //guardo coookie
+          this.cookieService.set( 'usuario', this.usuario );
+
+          const ruta = ['/home'];
           this._router.navigate(ruta);
         }
         console.log(respuestaData);

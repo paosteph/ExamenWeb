@@ -14,9 +14,19 @@ export class ActorController{
         return this._actorService.listarActores();
     }
 
+    @Get('listarCuatro/:inicio')
+    async listarCuatro(@Param() paramParams){
+        return this._actorService.listarCuatro(paramParams.inicio);
+    }
+
     @Get('listarPeliculas/:id')
     async listarActoresUnUsuario(@Param() paramParams){
         return this._actorService.listarActorPeliculas(paramParams.id);
+    }
+
+    @Get('listarPeliculasOcho/:id/:cantidad')
+    async listarOchoPeliculas(@Param() paramParams){
+        return this._actorService.listarActorPeliculasOcho(paramParams.id, paramParams.cantidad);
     }
 
     @Post('crear')
@@ -37,7 +47,7 @@ export class ActorController{
 
     @Get('buscarPorUsuario/:id')
     async buscarPorUsuario(@Param() paramParams): Promise<ActorEntity> {
-        return this._actorService.buscarPorUsuario(paramParams.id);
+        return this._actorService.buscarPorUsuarioId(paramParams.id);
     }
 
 

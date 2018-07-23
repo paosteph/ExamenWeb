@@ -1,0 +1,41 @@
+<div class="card-deck" *ngIf="peticion!==undefined">
+
+  <div class="card border-white">
+    <!--<div>-->
+      <app-usuario
+        [nombre]="usuario.nombre"
+        [apellido]="usuario.apellido"
+        [url_foto]="usuario.url_foto"
+      ></app-usuario>
+    <!--</div>-->
+    <div class="card">
+      <app-pelicula
+        [nombre]="peliculasSolicitantes.nombre"
+        [anioLanzamiento]="peliculasSolicitantes.anioLanzamiento"
+        [rating]="peliculasSolicitantes.rating"
+        [actoresPrincipales]="peliculasSolicitantes.actoresPrincipales"
+        [sinopsis]="peliculasSolicitantes.sinopsis"
+      ></app-pelicula>
+    </div>
+  </div>
+  <div class="col-sm-1 center-block">
+    <img src="assets/imagenes/flecha.png" class="img-fluid " alt="">
+  </div>
+  <div class="card border-white">
+    <div class="card border-white">
+      <h3 class="card-title alinearCentro">Solicitud En Espera</h3>
+    </div>
+    <div class="card" >
+      <app-pelicula
+        [nombre]="peliculasSolicitadas.nombre"
+        [anioLanzamiento]="peliculasSolicitadas.anioLanzamiento"
+        [rating]="peliculasSolicitadas.rating"
+        [actoresPrincipales]="peliculasSolicitadas.actoresPrincipales"
+        [sinopsis]="peliculasSolicitadas.sinopsis"
+      ></app-pelicula>
+    </div>
+  </div>
+
+</div>
+
+<br><br>

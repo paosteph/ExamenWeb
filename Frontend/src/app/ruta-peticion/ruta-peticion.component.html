@@ -25,7 +25,7 @@
     <div class="col-sm-12">
       <h3>Actor</h3>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="peliculasActor!==undefined">
       <div class="col-sm-8" *ngFor="let actor of peliculasActor">
         <app-actor
           [nombres]="actor.nombres"
@@ -36,6 +36,10 @@
           [url_foto]="'assets/imagenes/'+actor.url_foto"
         ></app-actor>
       </div>
+    </div>
+    <div *ngIf="peliculasActor === undefined">
+      <br>
+      <h5>No existen actores para este usuario</h5>
     </div>
   </div>
 
@@ -48,23 +52,30 @@
   </div>
 </div>
 <br>
-<div class="row" *ngFor="let actor of peliculasActor">
-  <div class="col-sm-3" *ngFor="let pelicula of actor.peliculas">
-    <app-pelicula
-      [nombre]="pelicula.nombre"
-      [anioLanzamiento]="pelicula.anioLanzamiento"
-      [rating]="pelicula.rating"
-      [actoresPrincipales]="pelicula.actoresPrincipales"
-      [sinopsis]="pelicula.sinopsis"
-    ></app-pelicula>
-    <button type="button" class="btn btn-group-vertical btn-outline-success" (click)="peticionTransferencia(pelicula.id)">Pedir transferencia</button>
-    <div class="col-sm-12"><br><br></div>
+<div *ngIf="peliculasActor!==undefined">
+  <div class="row" *ngFor="let actor of peliculasActor">
+    <div class="col-sm-3" *ngFor="let pelicula of actor.peliculas">
+      <app-pelicula
+        [nombre]="pelicula.nombre"
+        [anioLanzamiento]="pelicula.anioLanzamiento"
+        [rating]="pelicula.rating"
+        [actoresPrincipales]="pelicula.actoresPrincipales"
+        [sinopsis]="pelicula.sinopsis"
+      ></app-pelicula>
+      <button type="button" class="btn btn-group-vertical btn-outline-success" (click)="peticionTransferencia(pelicula.id)">Pedir transferencia</button>
+      <div class="col-sm-12"><br><br></div>
+    </div>
   </div>
+</div>
+
+<div *ngIf="peliculasActor === undefined">
+  <br>
+  <h5>No existen peliculas</h5>
 </div>
 <br>
 <div class="row ">
   <div class="col-sm-12 alinearCentro">
-    <button type="button" class="btn btn-secondary " >Cargar más</button>
+    <button type="button" class="btn btn-secondary " (click)="masPeliculas()">Cargar más</button>
   </div>
 </div>
 <br><br>

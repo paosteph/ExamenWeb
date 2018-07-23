@@ -14,6 +14,16 @@ export class PeliculaController{
         return this._peliculaService.listarTodas();
     }
 
+    @Get('listarCuatro/:inicio')
+    async listarCuatro(@Param() paramParams){
+        return this._peliculaService.listarCuatro(paramParams.inicio);
+    }
+
+    @Get('listarOcho/:idAutor/:cantidad')
+    async listarOcho(@Param() paramParams){
+        return this._peliculaService.listarMasOcho(paramParams.idAutor, paramParams.cantidad);
+    }
+
     @Post('crear')
     //@UsePipes(new ActorPipe(ACTOR_SCHEMA))
     async crearUno(

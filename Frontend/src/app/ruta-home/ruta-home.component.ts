@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-ruta-home',
@@ -14,45 +15,26 @@ export class RutaHomeComponent implements OnInit {
   @Input() idUsuario: number;
   @Output() irAPerfil: EventEmitter<number> = new EventEmitter<number>();
 
-  // user =
-  //   {
-  //     nombre: 'pao',
-  //     apellido: 'guamani',
-  //     url_foto: 'pao.jpg',
-  //     usuarioId: 1,
-  //   };
-  user = {};
+  usuario = {};
   url: string;
-  idUsuarioLogin: any;
+  //idUsuarioLogin: any;
+  cookieUsuario = 'UNKNOWN';
 
-  constructor(private _router: Router, private _httpClient: HttpClient, private _activatedRoute: ActivatedRoute) { }
+
+  constructor(private _router: Router, private _httpClient: HttpClient, private _activatedRoute: ActivatedRoute, private cookieService: CookieService) { }
 
   ngOnInit() {
+    this.cookieUsuario = this.cookieService.get('usuario');
+    console.log('cookie usuario',this.cookieUsuario);
 
-    const observableParametrosRutas$ = this._activatedRoute.params;
-    observableParametrosRutas$.subscribe(
-      (parametros)=>{
-        console.log("R",parametros);
-        this.idUsuarioLogin = parametros['usuarioHomeId'];
-        console.log('id logeo',this.idUsuarioLogin);
-
-        this.url = 'http://localhost:3000/Usuario/obtener/'+this.idUsuarioLogin;
-
-      },
-      (error)=>{
-        console.log('Error !',error);
-      },
-      ()=>{
-        //completa
-      }
-    );
-
+    this.url = 'http://localhost:3000/Usuario/obtener/'+this.cookieUsuario;
     const requestHttp$ = this._httpClient.get(this.url);
     requestHttp$.subscribe(
       (data)=>{
-        this.user = data;
+        this.usuario = data;
         console.log("Usuario de Home",data);
-        const ruta = ['/home',this.idUsuarioLogin,'usuario',this.idUsuarioLogin];
+
+        const ruta = ['/home','usuario'];
         this._router.navigate(ruta);
       },
       (error)=>{
@@ -63,6 +45,11 @@ export class RutaHomeComponent implements OnInit {
       }
     );
 
+  }
+
+  visitarPerfil(){
+    const ruta = ['/home','perfil'];
+    this._router.navigate(ruta);
   }
 
 }

@@ -25,6 +25,31 @@ export class PeliculaService{
         });
     }
 
+    async listarMasOcho(idActor,cantidad){
+        return await this._peliculaRepositorio.find({
+            where: {
+                actorId: idActor
+            },
+            order: {
+                nombre: 'ASC'
+            },
+            skip: 0,
+            take: cantidad
+        });
+
+    }
+
+    async listarCuatro(inicio){
+        return await this._peliculaRepositorio.find({
+            order: {
+                nombre: 'ASC'
+            },
+            skip: inicio,
+            take: 4
+        });
+
+    }
+
     async crearUno(
         nombre, anioLanzamiento, rating, actoresPrincipales, sinopsis, idActor): Promise<PeliculaEntity>{
         const pelicula = new PeliculaEntity();
@@ -48,12 +73,6 @@ export class PeliculaService{
     async obtenerUno(id: number): Promise<PeliculaEntity>{
         return await this._peliculaRepositorio.findOne(id);
     }
-
-    // async buscarActorPadre(idPelicula){
-    //     return await this._peliculaRepositorio.createQueryBuilder("pelicula")
-    //         .where("pelicula.actorId = :id", {id: idPelicula})
-    //         .getOne();
-    // }
 
     async buscarUsuario(idPelicula){
         return await this._peliculaRepositorio.createQueryBuilder('pelicula')
@@ -93,7 +112,7 @@ export class PeliculaService{
                 }
             );
         const idUsuarioSolicitante = pelicula.solicitanteId;
-        const actor = await this._actorService.buscarPorUsuario(idUsuarioSolicitante);
+        const actor = await this._actorService.buscarPorUsuarioId(idUsuarioSolicitante);
         //console.log(actor);
         pelicula.solicitudTransferencia = false;
         pelicula.solicitanteId = 0;

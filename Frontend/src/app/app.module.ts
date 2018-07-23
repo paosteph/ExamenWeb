@@ -16,6 +16,9 @@ import { PeliculaComponent } from './componentes/pelicula/pelicula.component';
 import { ActorComponent } from './componentes/actor/actor.component';
 import { RutaPeticionComponent } from './ruta-peticion/ruta-peticion.component';
 import { RutaSeleccionComponent } from './ruta-seleccion/ruta-seleccion.component';
+import {CookieService} from "ngx-cookie-service";
+import { PeticionComponent } from './componentes/peticion/peticion.component';
+import { SolicitudComponent } from './componentes/solicitud/solicitud.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +33,8 @@ import { RutaSeleccionComponent } from './ruta-seleccion/ruta-seleccion.componen
     ActorComponent,
     RutaPeticionComponent,
     RutaSeleccionComponent,
+    PeticionComponent,
+    SolicitudComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +47,7 @@ import { RutaSeleccionComponent } from './ruta-seleccion/ruta-seleccion.componen
     ),
     HttpClientModule
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

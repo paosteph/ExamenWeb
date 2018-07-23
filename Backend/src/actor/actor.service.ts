@@ -24,7 +24,20 @@ export class ActorService{
         });
     }
 
-    async listarActorPeliculas(idActor){
+    async listarCuatro(inicio){
+        return await this._actorRepositorio.find({
+            order: {
+                nombres: 'ASC'
+            },
+            skip: inicio,
+            take: 4
+        });
+
+    }
+
+    async listarActorPeliculas(idUsuario){
+        const usuario: UsuarioEntity[] = await this._usuarioService.listarActoresPorUsuario(idUsuario);
+        const idActor = usuario[0].actor.id;
         return this._actorRepositorio.find({
             relations: ["peliculas"],
             where: {
@@ -34,6 +47,11 @@ export class ActorService{
                 nombres: "ASC"
             }
         });
+    }
+
+    async listarActorPeliculasOcho(idUsuario, cantidad){
+        const actor = await this.buscarPorUsuarioId(idUsuario);
+
     }
 
     async obtenerPeliculasPorActor(id){
@@ -61,7 +79,7 @@ export class ActorService{
 
     }
 
-    async buscarPorUsuario(idUsuario: number): Promise<ActorEntity>{
+    async buscarPorUsuarioId(idUsuario: number): Promise<ActorEntity>{
         return await this._actorRepositorio.createQueryBuilder("actor")
             .where("actor.usuarioId = :id", {id: idUsuario})
             .getOne();

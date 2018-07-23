@@ -24,19 +24,22 @@
       [apellido]="usuario.apellido"
       [url_foto]="'assets/imagenes/'+usuario.url_foto"
     ></app-usuario>
-    <div *ngIf="usuariosActuales.size===0">
-      <p>No existen coincidencias</p>
-    </div>
-    <button type="button" class="btn btn-outline-info" (click)="visitarUsuario(usuario.id)">Visitar</button>
+    <button type="button" class="btn btn-outline-info"
+            (click)="visitarUsuario(usuario.id)"
+            *ngIf="usuario.id != cookieUsuario"
+    >Visitar</button>
+  </div>
+  <div *ngIf="usuariosActuales.length === 0">
+    <p>No existen mas usuarios</p>
   </div>
 </div>
 <br>
 <div class="row">
   <div class="col-sm-6">
-    <button type="button" class="btn btn-light">Anteriores</button>
+    <button type="button" class="btn btn-light" (click)="anterioresUsuarios()">Anteriores</button>
   </div>
   <div class="col-sm-6 alinearDerecha" >
-    <button type="button"align="right"  class="btn btn-light">Siguientes</button>
+    <button type="button"align="right"  class="btn btn-light" (click)="siguientesUsuario()">Siguientes</button>
   </div>
 
 </div>
@@ -59,14 +62,18 @@
       [url_foto]="'assets/imagenes/'+actor.url_foto"
     ></app-actor>
   </div>
+  <br>
+  <div *ngIf="actoresActuales.length === 0">
+    <p>No existen mas actores</p>
+  </div>
 </div>
 <br>
 <div class="row">
   <div class="col-sm-6">
-    <button type="button" class="btn btn-light">Anteriores</button>
+    <button type="button" class="btn btn-light" (click)="anterioresActores()">Anteriores</button>
   </div>
   <div class="col-sm-6 alinearDerecha" >
-    <button type="button" class="btn btn-light">Siguientes</button>
+    <button type="button" class="btn btn-light" (click)="siguientesActores()">Siguientes</button>
   </div>
 </div>
 <br><br><br>
@@ -77,23 +84,33 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row" *ngIf="peliculasActuales!==undefined">
   <div class="col-sm-3" *ngFor="let pelicula of peliculasActuales">
     <app-pelicula
-
+      [nombre]="pelicula.nombre"
+      [anioLanzamiento]="pelicula.anioLanzamiento"
+      [rating]="pelicula.rating"
+      [actoresPrincipales]="pelicula.actoresPrincipales"
+      [sinopsis]="pelicula.sinopsis"
     ></app-pelicula>
-    <button type="button" class="btn btn-info">Pedir transferencia</button>
+    <button type="button" class="btn btn-info" (click)="peticionTransferencia(pelicula.id)">Pedir transferencia</button>
+  </div>
+  <br>
+  <div *ngIf="peliculasActuales.length === 0">
+    <br>
+    <h5>No existen mas peliculas</h5>
   </div>
 </div>
 <br>
 <div class="row">
   <div class="col-sm-6">
-    <button type="button" class="btn btn-light">Anteriores</button>
+    <button type="button" class="btn btn-light" (click)="anterioresPeliculas()">Anteriores</button>
   </div>
   <div class="col-sm-6 alinearDerecha">
-    <button type="button" class="btn btn-light">Siguientes</button>
+    <button type="button" class="btn btn-light" (click)="siguientesPeliculas()">Siguientes</button>
   </div>
 </div>
 
 <p style="color: black" align="center">:(</p>
+<br><br><br><br>
 

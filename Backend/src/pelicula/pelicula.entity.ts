@@ -28,6 +28,9 @@ export class PeliculaEntity{
     @Column('int')
     solicitanteId: number;
 
+    @Column({nullable: true})
+    actorId: number;
+
     @ManyToOne(type => ActorEntity, actor => actor.peliculas)
     actor: ActorEntity
 

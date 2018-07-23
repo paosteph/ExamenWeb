@@ -20,7 +20,7 @@ export class PeticionService{
         private _peliculaService: PeliculaService
     ){}
 
-    async registrar(idPeliculaSolicitante, idPeliculaSolicitada){
+    async registrar(idPeliculaSolicitante, idPeliculaSolicitada) {
         const peticion = new PeticionEntity();
 
         const peliculaSolicitante = await this._peliculaService.obtenerUno(idPeliculaSolicitante);
@@ -31,12 +31,15 @@ export class PeticionService{
 
         peticion.peliculaSolicitante = peliculaSolicitante;
         peticion.peliculaSolicitada = peliculaSolicitada;
-        peticion.usuarioSolicitante = usuarioSolicitante.actor.usuario.id;
-        peticion.usuarioSolicitado = usuarioSolicitado.actor.usuario.id;
+        peticion.usuarioSolicitante = usuarioSolicitante.actor.usuario;
+        peticion.usuarioSolicitado = usuarioSolicitado.actor.usuario;
         peticion.realizada = false;
 
-        await this._peticionRepositorio.save(peticion);
+        //console.log(peticion);
+        return await this._peticionRepositorio.save(peticion);
+
     }
+
 
     async obtener(idPeticion){
         return await this._peticionRepositorio.findOne({
@@ -47,26 +50,35 @@ export class PeticionService{
         });
     }
 
-    async listarEnviadas(idUsuarioSolicitante){
+    async obtenerTodo(idPeticion){
+        return await this._peticionRepositorio.findOne({
+            relations: ["usuarioSolicitante","peliculaSolicitante","usuarioSolicitado","peliculaSolicitada"],
+            where: {
+                id: idPeticion
+            }
+        });
+    }
+
+    async listarEnEspera(idUsuario){
         /// usuario que hizo peticion y espera respuesta
-        return this._peticionRepositorio.find({
-            relations: ["peliculaSolicitante"],
+        return await this._peticionRepositorio.find({
+            //relations: ["usuarioSolicitante","peliculaSolicitante","usuarioSolicitado","peliculaSolicitada"],
             where: {
                 realizada: false,
-                usuarioSolicitante: idUsuarioSolicitante
+                usuarioSolicitanteId: idUsuario
             }
         });
 
     }
 
 
-    async listarRecibidas(idUsuarioSolicitado){
+    async listarRecibidas(idUsuario){
         /// usuario que recibe peticion y aceptara o rechazara
-        return this._peticionRepositorio.find({
-            relations: ["peliculaSolicitada"],
+        return await this._peticionRepositorio.find({
+            //relations: ["usuarioSolicitante","peliculaSolicitante","usuarioSolicitado","peliculaSolicitada"],
             where: {
                 realizada: false,
-                usuarioSolicitado: idUsuarioSolicitado
+                usuarioSolicitadoId: idUsuario
             }
         });
 
@@ -74,11 +86,11 @@ export class PeticionService{
 
     async aceptarTransferencia(idPeticion){
         const peticion = await this.obtener(idPeticion);
-
+        console.log('Peticion a aceptarse', peticion);
         const peliculaSolicitante = peticion.peliculaSolicitante;
         const peliculaSolicitada = peticion.peliculaSolicitada;
-        const actorSolicitante = await this._actorService.buscarPorUsuario(peticion.usuarioSolicitante);
-        const actorSolicitado = await this._actorService.buscarPorUsuario(peticion.usuarioSolicitado);
+        const actorSolicitante = await this._actorService.buscarPorUsuarioId(peticion.usuarioSolicitanteId);
+        const actorSolicitado = await this._actorService.buscarPorUsuarioId(peticion.usuarioSolicitadoId);
 
         peliculaSolicitante.actor = actorSolicitado;
         peliculaSolicitada.actor = actorSolicitante;

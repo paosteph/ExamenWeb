@@ -17,10 +17,15 @@ export class UsuarioController{
         return this._usuarioService.listarActoresPorUsuario(paramParams.id);
     }
 
-    // @Get('listarUsuarioTodo/:id')
-    // async listarUsuarioTodo(@Param() paramParams){
-    //     return this._usuarioService.listarUsuarioTodo(paramParams.id);
-    // }
+    @Get('listarTodo/:id')
+    async listarTodo(@Param() paramParams){
+        return this._usuarioService.listarTodoDeUsuario(paramParams.id);
+    }
+
+    @Get('listarCuatro/:inicio')
+    async listarCuatro(@Param() paramParams){
+        return this._usuarioService.listarCuatro(paramParams.inicio);
+    }
 
     @Get('obtener/:id')
     async obtenerUno(@Param() paramParams): Promise<UsuarioEntity> {

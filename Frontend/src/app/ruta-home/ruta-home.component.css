@@ -1,0 +1,9 @@
+.home{
+  cursor: pointer;
+  ;
+}
+
+.home:hover{
+  color: royalblue;
+  border-color: royalblue;
+}

@@ -22,17 +22,32 @@ export class UsuarioService{
         });
     }
 
+    async listarCuatro(inicio){
+        return await this._usuarioRepositorio.find({
+            order: {
+                nombre: 'ASC'
+            },
+            skip: inicio,
+            take: 4
+        });
+
+    }
+
     async listarActoresPorUsuario(idUsuario){
         return this._usuarioRepositorio.find({
-            relations: ["actores"],
+            relations: ["actor"],
             where: {id: idUsuario}
         });
     }
 
-    // async listarUsuarioTodo(idUsuario){
-    //     const actoresUsuario = await this.listarPorUsuario(idUsuario);
-    //     return this._actorService.listarPeliculasUnActor(actoresUsuario.id);
-    // }
+    async listarTodoDeUsuario(idUsuario){
+        return this._usuarioRepositorio.find({
+           relations: ["actor","actor.peliculas"],
+           where: {
+               id: idUsuario
+           }
+        });
+    }
 
     async crearUno(nombre, apellido, correo, password, url_foto){
         const usuario = new UsuarioEntity();

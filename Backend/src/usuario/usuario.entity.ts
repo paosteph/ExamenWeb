@@ -25,10 +25,10 @@ export class UsuarioEntity{
     @OneToOne(type => ActorEntity, actor => actor.usuario)
     actor: ActorEntity;
 
-    // @OneToMany(type => PeticionEntity, peticion => peticion.usuarioSolicitado)
-    // peticionesRecibidas: PeticionEntity[];
-    //
-    // @OneToMany(type => PeticionEntity, peticion => peticion.usuarioSolicitante)
-    // peticionesEnviadas: PeticionEntity[];
+    @OneToMany(type => PeticionEntity, peticion => peticion.usuarioSolicitado)
+    peticionesRecibidas: PeticionEntity[];
+
+    @OneToMany(type => PeticionEntity, peticion => peticion.usuarioSolicitante)
+    peticionesEnviadas: PeticionEntity[];
 
 }
